@@ -1,0 +1,35 @@
+meta {
+  name: get heros
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:5000/heros?hero=3&user=1
+  body: json
+  auth: inherit
+}
+
+params:query {
+  hero: 3
+  user: 1
+}
+
+body:json {
+    {
+      "id_user": 1,
+      "id": 1,
+      "name": "Arthas",
+      "class": "Warrior",
+      "pv": "120",
+      "atk": "25",
+      "lvl": "5",
+      "xp": "1500",
+      "gold": "200"
+    }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

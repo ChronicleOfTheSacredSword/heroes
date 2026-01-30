@@ -1,0 +1,21 @@
+meta {
+  name: delete hero
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:5000/heros?user=1&hero=3
+  body: none
+  auth: inherit
+}
+
+params:query {
+  user: 1
+  hero: 3
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

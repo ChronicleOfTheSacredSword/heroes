@@ -91,6 +91,32 @@ paths:
             schema:
               $ref: '#/components/schemas/Heros'
         description: héros à mettre à jour
+    delete:
+      tags:
+        - Heros
+      summary: Supprime un héros
+      operationId: supprimeHeros
+      description: supprime un héros de la base de données
+      parameters:
+        - in: query
+          name: id_user
+          description: id de l'utilisateur
+          required: true
+          schema:
+            type: number
+        - in: query
+          name: id_heros
+          description: id du héros à supprimer
+          required: true
+          schema:
+            type: number
+      responses:
+        '201':
+          description: héros supprimé
+        '400':
+          description: 'invalid parameter'
+        '404':
+          description: le héros n'existe pas
   /heros/{id_user}:
     get:
       tags:
@@ -120,27 +146,6 @@ paths:
                   $ref: '#/components/schemas/Heros'
         '400':
           description: bad input parameter
-  /heros/{id_heros}:
-    delete:
-      tags:
-        - Heros
-      summary: Supprime un héros
-      operationId: supprimeHeros
-      description: supprime un héros de la base de données
-      parameters:
-        - in: path
-          name: id_heros
-          description: id du héros à supprimer
-          required: true
-          schema:
-            type: number
-      responses:
-        '201':
-          description: héros supprimé
-        '400':
-          description: 'invalid parameter'
-        '404':
-          description: le héros n'existe pas
 components:
   schemas:
     Heros:

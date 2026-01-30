@@ -1,0 +1,30 @@
+meta {
+  name: put heros
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:5000/heros
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "id_user": 1,
+      "id": 3,
+      "name": "Arthas",
+      "class": "Warrior",
+      "pv": "100",
+      "atk": "25",
+      "lvl": "5",
+      "xp": "1500",
+      "gold": "200"
+    }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

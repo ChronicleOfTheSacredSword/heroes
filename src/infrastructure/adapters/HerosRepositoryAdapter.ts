@@ -1,20 +1,8 @@
 import {HerosRepositoryPort} from "../../application/ports/outbound/HerosRepositoryPort";
 import {Heros} from "../../domain/models/Heros";
-const db = require('../../../db');
+import db from '../../../db';
 
 class HerosRepo implements HerosRepositoryPort {
-
-    async findAll(): Promise<Heros[]> {
-        const res = await db.query(
-            `
-			SELECT
-				*
-			FROM heroes
-			`
-        );
-
-        return res.rows;
-    }
 
     async findByUserId(id_user: number): Promise<Heros[] | null> {
         const res = await db.query(
@@ -42,7 +30,7 @@ class HerosRepo implements HerosRepositoryPort {
             [id_user, id_hero]
         );
 
-        return res.rows ?? null;
+        return res.rows[0] ?? null;
     }
 
     async save(heros: Omit<Heros, 'id'>): Promise<Heros> {
