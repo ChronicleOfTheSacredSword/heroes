@@ -1,0 +1,185 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/imtminesals/ServiceHeros/1.0.0
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/imtminesals/ServiceSauvegarde/1.0.0
+info:
+  description: API du service de héros
+  version: "1.0.0"
+  title: Service Heros API
+  contact:
+    email: louys370@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: Heros
+    description: Operations sur les héros d'un utilisateur
+paths:
+  /heros:
+    get:
+      tags:
+        - Heros
+      summary: recherche d'un héros d'un utilisateur
+      operationId: rechercheHeros
+      description: |
+        En entrant les options appropriés, vous pouvez trouver
+        un héros d'un joueur.
+      parameters:
+        - in: query
+          name: idUser
+          description: Identifiant de l'utilisateur
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: idHero
+          description: Identifiant du héros
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Heros'
+        '400':
+          description: bad input parameter
+    post:
+      tags:
+        - Heros
+      summary: ajout d'un héros
+      operationId: ajoutHero
+      description: ajout d'un héros
+      responses:
+        '201':
+          description: héros ajouté
+        '400':
+          description: 'invalid input, object invalid'
+        '409':
+          description: an existing item already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Heros'
+        description: Héros à ajouter
+    put:
+      tags:
+        - Heros
+      summary: mise à jour d'un héros
+      operationId: majHeros
+      description: mise à jour d'un héros
+      responses:
+        '201':
+          description: héros mise à jour
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Heros'
+        description: héros à mettre à jour
+  /heros/{id_user}:
+    get:
+      tags:
+        - Heros
+      summary: recherche des héros d'un utilisateur
+      operationId: rechercheHerosUser
+      description: |
+        En entrant les options appropriés, vous pouvez trouver
+        les sauvegardes d'un héros d'un joueur.
+      parameters:
+        - in: path
+          name: id_user
+          description: id de l'utilisateur
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Heros'
+        '400':
+          description: bad input parameter
+  /heros/{id_heros}:
+    delete:
+      tags:
+        - Heros
+      summary: Supprime un héros
+      operationId: supprimeHeros
+      description: supprime un héros de la base de données
+      parameters:
+        - in: path
+          name: id_heros
+          description: id du héros à supprimer
+          required: true
+          schema:
+            type: number
+      responses:
+        '201':
+          description: héros supprimé
+        '400':
+          description: 'invalid parameter'
+        '404':
+          description: le héros n'existe pas
+components:
+  schemas:
+    Heros:
+      type: object
+      required:
+        - id
+        - id_user
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 0
+        id_user:
+          type: integer
+          format: int32
+          example: 0
+        name:
+          type: string
+          example: Lwiisport
+        class:
+          type: string
+          example: Chevalier
+        pv:
+          type: integer
+          format: int32
+          example: 50
+        atk:
+          type: integer
+          format: int32
+          example: 10
+        lvl:
+          type: integer
+          format: int32
+          example: 8
+        xp:
+          type: integer
+          format: int32
+          example: 1100
+        gold:
+          type: integer
+          format: int32
+          example: 150
