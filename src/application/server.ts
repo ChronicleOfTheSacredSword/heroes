@@ -12,8 +12,11 @@ import {HerosController} from "../presentation/controllers/HerosController";
 
 dotenv.config();
 
+const cors = require('cors');
 const app = express();
 app.use(express.json());
+app.use(cors({ origin: 'http://localhost:9000' }));
+
 
 const file  = fs.readFileSync('src/api/Heros.yml', 'utf8');
 const swaggerDocument = YAML.parse(file);
