@@ -1,5 +1,6 @@
 import {HerosRepositoryPort} from "../../application/ports/outbound/HerosRepositoryPort";
 import {Heros} from "../../domain/models/Heros";
+import {sendLogMessage} from "../../domain/services/sendLogMessage"
 import db from '../../../db';
 
 class HerosRepo implements HerosRepositoryPort {
@@ -63,6 +64,13 @@ class HerosRepo implements HerosRepositoryPort {
             ]
         );
 
+        sendLogMessage({
+            id_user: heros.id_user as number,
+            content: `The user ${heros.id_user} created a new heros ${heros.name}.`
+        }).catch(err => {
+            console.error("RabbitMQ log failed:", err.message);
+        });
+
         return res.rows[0];
     }
 
@@ -96,6 +104,14 @@ class HerosRepo implements HerosRepositoryPort {
             ]
         );
 
+        sendLogMessage({
+            id_user: heros.id_user as number,
+            content: `The user ${heros.id_user} updated the hero ${heros.id}-${heros.name}.`
+        }).catch(err => {
+            console.error("RabbitMQ log failed:", err.message);
+        });
+
+
         return res.rows[0] ?? null;
     }
 
@@ -114,6 +130,13 @@ class HerosRepo implements HerosRepositoryPort {
                 id_user
             ]
         );
+
+        sendLogMessage({
+            id_user: id_user as number,
+            content: `The user ${id_user} deleted the hero ${id_heros}.`
+        }).catch(err => {
+            console.error("RabbitMQ log failed:", err.message);
+        });
 
         return res.rows[0];
     }
