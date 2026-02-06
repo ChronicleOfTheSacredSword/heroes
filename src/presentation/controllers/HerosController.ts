@@ -42,6 +42,7 @@ export class HerosController {
   }
 
   async insertHeros(req: Request, res: Response) {
+  console.log(req.body)
     const created: Heros = await this.herosServicePort.putHeros(req.body);
     if (created === null) {
       res.status(404).send({ message: "Hero could not be saved" });
